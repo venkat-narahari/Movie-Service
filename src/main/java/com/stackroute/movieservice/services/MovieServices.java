@@ -16,6 +16,6 @@ public interface MovieServices {
 	
 	public Movie updateMovie(int movieId,Movie movie);
 	
-	public List<Movie> getMovieByName(String movie);
+	//public List<Movie> getMovieByName(String movie);
 
 }

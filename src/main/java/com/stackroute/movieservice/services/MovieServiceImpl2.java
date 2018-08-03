@@ -41,10 +41,10 @@ public class MovieServiceImpl2 implements MovieServices{
 		return null;
 	}
 
-	@Override
-	public List<Movie> getMovieByName(String movie) {
-		System.out.println("Save");
-		return null;
-	}
+//	@Override
+//	public List<Movie> getMovieByName(String movie) {
+//		System.out.println("Save");
+//		return null;
+//	}
 
 }

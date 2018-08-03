@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.stackroute.movieservice.Repository.MovieRepository;
 import com.stackroute.movieservice.domain.Movie;
 
 @Service
+@Primary
 @Qualifier("Service1")
 public class MovieServicesImpl implements MovieServices{
 	
@@ -82,16 +84,16 @@ public class MovieServicesImpl implements MovieServices{
 		}
 	}
 
-	@Override
-	public List<Movie> getMovieByName(String mname) {
-		List<Movie> movieList = movieRepository.getByMovieName(mname);
-		if(movieList.isEmpty()) {
-			return null;
-		}
-		else {
-			return movieList;
-		}
-	}
+//	@Override
+//	public List<Movie> getMovieByName(String mname) {
+//		List<Movie> movieList = movieRepository.getByMovieName(mname);
+//		if(movieList.isEmpty()) {
+//			return null;
+//		}
+//		else {
+//			return movieList;
+//		}
+//	}
 
 
 	

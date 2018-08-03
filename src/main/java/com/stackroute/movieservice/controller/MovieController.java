@@ -21,18 +21,18 @@ import com.stackroute.movieservice.services.MovieServices;
 @RequestMapping("/api/v1/")
 public class MovieController {
 	
-	private MovieServices movieServiceImpl;
+	private MovieServices movieService;
 	
 	@Autowired
-	public MovieController(@Qualifier("service1")MovieServices movieServiceImpl) {
-		this.movieServiceImpl=movieServiceImpl;
+	public MovieController(MovieServices movieService) {
+		this.movieService=movieService;
 	}
 
 	@RequestMapping(value="/movies" , method=RequestMethod.GET , produces="application/json")
 	public ResponseEntity<?> getAllMovies(){
 		try {
 			List<Movie> movieList;
-			if((movieList= movieServiceImpl.getAllMovies())!=null) {
+			if((movieList= movieService.getAllMovies())!=null) {
 				return new ResponseEntity<List<Movie>>(movieList,HttpStatus.OK);
 			}
 			else {
@@ -48,7 +48,7 @@ public class MovieController {
 	public ResponseEntity<?> saveMovie(@RequestBody Movie movie) throws MovieAlreadyExistsException{
 		try {
 			Movie savedMovie;
-			if((savedMovie = movieServiceImpl.saveMovie(movie))!=null) {
+			if((savedMovie = movieService.saveMovie(movie))!=null) {
 				return new ResponseEntity<Movie>(savedMovie,HttpStatus.OK);
 			}
 			else {
@@ -66,7 +66,7 @@ public class MovieController {
 	public ResponseEntity<?> deleteMovie(@PathVariable int movieId) throws MovieNotFoundException{ 
 		try {	
 			Movie movie;
-			if((movie= movieServiceImpl.deleteMovie(movieId))!=null) {
+			if((movie= movieService.deleteMovie(movieId))!=null) {
 				return new ResponseEntity<Movie>(movie,HttpStatus.OK);
 			}
 			else {
@@ -83,7 +83,7 @@ public class MovieController {
 	public ResponseEntity<?> updateMovie(@PathVariable int movieId ,@RequestBody Movie movie) throws MovieNotFoundException{
 		try {	
 			Movie updatedMovie;
-			if((updatedMovie = movieServiceImpl.updateMovie(movieId,movie))!=null) {
+			if((updatedMovie = movieService.updateMovie(movieId,movie))!=null) {
 				return new ResponseEntity<Movie>(updatedMovie,HttpStatus.OK);
 			}
 			else {
@@ -99,7 +99,7 @@ public class MovieController {
 	public ResponseEntity<?> getMovieById(@PathVariable int movieId)  throws MovieNotFoundException{
 		try {	
 			Movie movie;
-			if((movie= movieServiceImpl.getMovieById(movieId))!=null) {
+			if((movie= movieService.getMovieById(movieId))!=null) {
 				return new ResponseEntity<Movie>(movie,HttpStatus.OK);
 			}
 			else {
@@ -111,21 +111,21 @@ public class MovieController {
 		}
 	}
 	
-	@RequestMapping(value="searchName/movie/{mname}" , method=RequestMethod.GET , produces="application/json")
-	public ResponseEntity<?> getMovieByName(@PathVariable String mname){
-		try {
-			List<Movie> movieList;
-			if((movieList = movieServiceImpl.getMovieByName(mname))!=null) {
-				return new ResponseEntity<List<Movie>>(movieList,HttpStatus.OK);
-			}
-			else {
-				throw new MovieNotFoundException(mname);
-			}
-		}
-		catch(MovieNotFoundException e) {
-			return new ResponseEntity<String>(e.toString(),HttpStatus.OK);
-		}
-	}
+//	@RequestMapping(value="searchName/movie/{mname}" , method=RequestMethod.GET , produces="application/json")
+//	public ResponseEntity<?> getMovieByName(@PathVariable String mname){
+//		try {
+//			List<Movie> movieList;
+//			if((movieList = movieServiceImpl.getMovieByName(mname))!=null) {
+//				return new ResponseEntity<List<Movie>>(movieList,HttpStatus.OK);
+//			}
+//			else {
+//				throw new MovieNotFoundException(mname);
+//			}
+//		}
+//		catch(MovieNotFoundException e) {
+//			return new ResponseEntity<String>(e.toString(),HttpStatus.OK);
+//		}
+//	}
 	
 		
 }
